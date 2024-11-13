@@ -1,0 +1,19 @@
+body{
+    background-color: rgb(8, 7, 99);
+}
+
+header{
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+div{
+    display: flex;
+    flex-direction: row;
+
+    img{
+        width: 300px;
+    }
+}
+

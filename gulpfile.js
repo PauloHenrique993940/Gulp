@@ -1,8 +1,8 @@
-import gulp from "gulp";
-import sass from "gulp-sass";
-import sourcemaps from "gulp-sourcemaps";
-import imagemin from "gulp-imagemin";
-import uglify from "gulp-uglify";
+const gulp = require("gulp");
+const sass = require("gulp-sass")(require("sass"));
+const sourcemaps = require("gulp-sourcemaps");
+const imagemin = require("gulp-imagemin");
+const uglify = require("gulp-uglify");
 
 // Tarefa de otimização de imagens
 function compimeImagen() {
@@ -27,10 +27,11 @@ function minificarJS() {
         .pipe(gulp.dest("./build/scripts"));
 }
 
-// Tarefa principal que agrupa as outras tarefas
-export default function () {
-    // Monitoramento das mudanças nos arquivos
-    gulp.watch("./source/styles/*.scss", gulp.series(compilarSass));
-    gulp.watch("./source/images/*", gulp.series(compimeImagen));
-    gulp.watch("./source/scripts/*.js", gulp.series(minificarJS));
+// Tarefa principal que agrupa as outras tarefas e monitora as mudanças
+function watchFiles() {
+    gulp.watch("./source/styles/*.scss", { ignoreInitial: false }, gulp.series(compilarSass));
+    gulp.watch("./source/images/*", { ignoreInitial: false }, gulp.series(compimeImagen));
+    gulp.watch("./source/scripts/*.js", { ignoreInitial: false }, gulp.series(minificarJS));
 }
+
+exports.default = watchFiles;
